@@ -70,18 +70,18 @@ inquirer.prompt([
         console.log(res.data);
         var avatarImg = res.data.avatar_url;
 
-        fs.writeFile("README.md",`(${avatarImg})
-      \n  Name:${response.name}  
-        title:${response.title}  
-        Description:${response.description}  
-        Table Of Content:${response.tableOfContent}  
-        Installation:${response.installation}  
-        Usage:${response.usage}  
-        Lincse:${response.lincse}  
-        Contributin:${response.contributing}  
-        Test:${response.test}  
-        Profile:${response.profile}  
-        Email:${response.email}`, function (err) {
+        fs.writeFile("README.md",`![](${avatarImg})
+      \n  Name:  ${response.name}  
+        title:  ${response.title}  
+        Description:  ${response.description}  
+        Table of Content:  ${response.tableOfContent}  
+        Installation:  ${response.installation}  
+        Usage:  ${response.usage}  
+        Lincse:  ${response.lincse}  
+        Contributin:  ${response.contributing}  
+        Test:  ${response.test}  
+        Profile:  ${response.profile}  
+        Email:  ${response.email}`, function (err) {
 
             if (err) {
                return console.log(err);
