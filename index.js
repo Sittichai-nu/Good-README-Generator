@@ -69,32 +69,30 @@ inquirer.prompt([
     axios.get(`https://api.github.com/users/${response.userName}`).then(function (res) {
         console.log(res.data);
         var avatarImg = res.data.avatar_url;
-        const markdown = ` ![](${avatarImg} "")
-                          ##Name
-                          ${response.name}  
-                          ##title
-                          ${response.title}  
-                          ##Description
-                          ${response.description}  
-                          ##TableOfContent
-                          ${response.tableOfContent}  
-                          ##Installation
-                          ${response.installation}  
-                          ##Usage
-                          ${response.usage}  
-                          ##Lincse
-                          ${response.lincse}  
-                          ##Contributin
-                          ${response.contributing}  
-                          ##Test
-                          ${response.test}  
-                          ##Profile
-                          ${response.profile}  
-                          ##Email
-                          ${response.email}`
 
-
-        fs.writeFile("README.md", markdown, function (err) {
+        fs.writeFile("README.md",  `![](${avatarImg})
+        ##Name
+        ${response.name}  
+        ##title
+        ${response.title}  
+        ##Description
+        ${response.description}  
+        ##TableOfContent
+        ${response.tableOfContent}  
+        ##Installation
+        ${response.installation}  
+        ##Usage
+        ${response.usage}  
+        ##Lincse
+        ${response.lincse}  
+        ##Contributin
+        ${response.contributing}  
+        ##Test
+        ${response.test}  
+        ##Profile
+        ${response.profile}  
+        ##Email
+        ${response.email}`, function (err) {
 
             if (err) {
                return console.log(err);
