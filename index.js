@@ -64,38 +64,43 @@ function promptUser() {
     }
 ]);
 }
-function generateReadMe(answers) {
+function generateReadMe (answers){
+  return `
+  ##Name:
+${answers.name}
+##Title
+${answers.Title}
+##Descriptiomn
+${answers.Description}
+##Table Of Content
+${answers.TableOfContent}
+##Installation
+${answers.Installation}
+##Usage
+${answers.Usage}
+##License
+${answers.License}
+##Contribuitng
+${answers.Contributing}
+##Test
+${answers.Test}
+##Profile
+${answers.Profile}
+##Email
+${answers.Email}`
 
-      const queryURL = `https://api.github.com/users/${response.username}/even/public` 
-    return `
-  ${answers.name}
-  ${answers.Title}
-  ${answers.Description}
-  ${answers.TableOfContent}
-  ${answers.Installation}
-  ${answers.Usage}
-  ${answers.Lincse}
-  ${answers.Contributing}
-  ${answers.Test}
-  ${answers.Prpfile}
-  ${answers.Email}`
-  };
-
+};
 
   
-  async function init() {
-      console.log("hi")
-      try {
-        const answers = await promptUser();
-    
-        const readme = generateReadMe(answers);
-    
-        await writeFileAsync("README.md", readmeFile);
-    
-        console.log("Successfully generate README.md file");
-      } catch(err) {
-        console.log(err);
-      }
-    }
-    
-    init();
+promptUser()
+.then(function(answers) {
+  const readme = generateReadMe(answers);
+
+  return writeFileAsync("README.md", readmeFile);
+})
+.then(function() {
+  console.log("Success!");
+})
+.catch(function(err) {
+  console.log(err);
+});
