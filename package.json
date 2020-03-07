@@ -1,0 +1,24 @@
+{
+  "name": "nu",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "github-api": "^3.3.0",
+    "inquirer": "^7.0.4",
+    "markdown": "^0.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gr"
+  },
+  "keywords": [
+    "rg"
+  ],
+  "author": "rtg",
+  "license": "MIT",
+  "description": ""
+}

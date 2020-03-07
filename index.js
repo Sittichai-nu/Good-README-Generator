@@ -1,56 +1,58 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const util = require("util");
 const axios = require("axios");
 
-const writeFileAsync = util.promisify(fs.writeFile);
 
-function promptUser() {
-  return inquirer.prompt([
+inquirer.prompt([
     {
-      type: "input",
-      name: "name",
-      message: "What is your name?"
-    },
-    {
-      type: "input",
-      name: "Title",
-      message: "What is your project title?"
-    },
-    {
-      type: "input",
-      name: "Description",
-      message: "Project description"
-    },
-    {
-      type: "input",
-      name: "TableOfContent",
-      message: "Write your Table Content"
-    },
-    {
-      type: "input",
-      name: "Installation",
-      message: "Installation process"
-    },
-    {
-      type: "input",
-      name: "Usage",
-      message: "Usage."
+        type: "input",
+        name: "name",
+        message: "What is your name?"
     },
     {
         type: "input",
-        name: "Lincense",
+        name: "title",
+        message: "What is your project title?"
+    },
+    {
+        type: "input",
+        name: "description",
+        message: "Project description"
+    },
+    {
+        type: "input",
+        name: "tableOfContent",
+        message: "Write your Table Content"
+    },
+    {
+        type: "input",
+        name: "installation",
+        message: "Installation process"
+    },
+    {
+        type: "input",
+        name: "usage",
+        message: "Usage."
+    },
+    {
+        type: "input",
+        name: "lincense",
         message: "What is your license."
     },
     {
         type: "input",
-        name: "Contributing",
+        name: "contributing",
         message: "Who is your Contributor?."
     },
     {
         type: "input",
-        name: "Test",
+        name: "test",
         message: "test."
+    },
+    {
+        type: "input",
+        name: "userName",
+        message: "Github Username?"
     },
     {
         type: "input",
@@ -62,45 +64,33 @@ function promptUser() {
         name: "Email",
         message: "enter your emaile."
     }
-]);
-}
-function generateReadMe (answers){
-  return `
-  ##Name:
-${answers.name}
-##Title
-${answers.Title}
-##Descriptiomn
-${answers.Description}
-##Table Of Content
-${answers.TableOfContent}
-##Installation
-${answers.Installation}
-##Usage
-${answers.Usage}
-##License
-${answers.License}
-##Contribuitng
-${answers.Contributing}
-##Test
-${answers.Test}
-##Profile
-${answers.Profile}
-##Email
-${answers.Email}`
+]).then(function (response) {
+    console.log(response.userName);
+    axios.get(`https://api.github.com/users/${response.userName}`).then(function (res) {
+        console.log(res.data);
+        var avatarImg = res.data.avatar_url;
 
-};
+        fs.writeFile("README.md",`![](${avatarImg})
+      \n  Name:  ${response.name}  
+        title:  ${response.title}  
+        Description:  ${response.description}  
+        Table of Content:  ${response.tableOfContent}  
+        Installation:  ${response.installation}  
+        Usage:  ${response.usage}  
+        Lincse:  ${response.lincse}  
+        Contributin:  ${response.contributing}  
+        Test:  ${response.test}  
+        Profile:  ${response.profile}  
+        Email:  ${response.email}`, function (err) {
 
-  
-promptUser()
-.then(function(answers) {
-  const readme = generateReadMe(answers);
+            if (err) {
+               return console.log(err);
+            }
+            console.log("Successfully wrote README File!");
 
-  return writeFileAsync("README.md", readmeFile);
-})
-.then(function() {
-  console.log("Success!");
-})
-.catch(function(err) {
-  console.log(err);
+        });
+    }, err => {
+        console.log(err);
+    });
 });
+
